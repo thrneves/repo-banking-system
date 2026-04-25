@@ -2,7 +2,7 @@ menu = """
 
 [d] Depositar
 [s] Sacar
-[e] extract
+[e] Extrato
 [q] Sair
 
 => """
@@ -56,7 +56,7 @@ while True:
     elif user_input == "e":
         print("\n================ extract ================")
         print("Não foram realizadas movimentações." if not extract else extract)
-        print(f"\nbalance: R$ {balance:.2f}")
+        print(f"\Saldo: R$ {balance:.2f}")
         print("==========================================")
 
     elif user_input == "q":
