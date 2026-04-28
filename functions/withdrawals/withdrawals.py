@@ -4,7 +4,12 @@ WITHDRAWAL_LIMIT = 3
 
 def withdrawals(account: dict) -> dict:
     global number_of_withdrawals
-    value = float(input("Informe o valor do saque: "))
+    
+    try:
+        value = float(input("Informe o valor do saque: "))
+    except ValueError as err:
+        print("Saque precisa ser numérico!\nError: ", err)
+        return account
 
     if value <= 0: 
         print("Operação falhou! Valor de saque precisa ser maior que 0.")
