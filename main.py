@@ -1,66 +1,40 @@
+from functions.extracts.extracts import extracts
+from functions.deposits.deposits import deposits
+from functions.withdrawals.withdrawals import withdrawals
+
 menu = """
 
 [d] Depositar
 [s] Sacar
-[e] extract
+[e] Extrato
 [q] Sair
 
 => """
 
-balance = 0
-limit = 500
-extract = ""
-number_of_withdrawals = 0
-WITHDRAWAL_LIMIT = 3
+account = {}
 
 while True:
-
     user_input = input(menu)
 
-    if user_input == "d":
-        value = float(input("Informe o value do depósito: "))
+    match user_input:
+        case "d":
+            account = deposits(account)
 
-        if value > 0:
-            balance += value
-            extract += f"Depósito: R$ {value:.2f}\n"
+        case "s":
+            if not account:
+                print("Antes de sacar, você precisa realizar um depósito!")
+                continue
+            account = withdrawals(account=account)
 
-        else:
-            print("Operação falhou! O value informado é inválido.")
+        case "e":
+            if not account:
+                print("Você ainda não depositou valores para solicitar extratos!")
+                continue
+            extracts(account["balance"], extract=account["extract"])
+    
+        case "q":
+            print("Obrigado(a) por utilizar o nosso sistema bancário!")
+            break
 
-    elif user_input == "s":
-        value = float(input("Informe o value do saque: "))
-
-        exceeded_balance = value > balance
-
-        exceeded_limit = value > limit
-
-        exceeded_withdrawals = number_of_withdrawals >= WITHDRAWAL_LIMIT
-
-        if exceeded_balance:
-            print("Operação falhou! Você não tem balance suficiente.")
-
-        elif exceeded_limit:
-            print("Operação falhou! O value do saque excede o limit.")
-
-        elif exceeded_withdrawals:
-            print("Operação falhou! Número máximo de saques excedido.")
-
-        elif value > 0:
-            balance -= value
-            extract += f"Saque: R$ {value:.2f}\n"
-            number_of_withdrawals += 1
-
-        else:
-            print("Operação falhou! O value informado é inválido.")
-
-    elif user_input == "e":
-        print("\n================ extract ================")
-        print("Não foram realizadas movimentações." if not extract else extract)
-        print(f"\nbalance: R$ {balance:.2f}")
-        print("==========================================")
-
-    elif user_input == "q":
-        break
-
-    else:
-        print("Operação inválida, por favor selecione novamente a operação desejada.")
+        case _:
+            print("Operação inválida, por favor selecione novamente a operação desejada.")
