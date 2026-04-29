@@ -1,4 +1,4 @@
-def deposits(account: dict | None = None) -> dict:
+def deposits(account: dict | None = None, /) -> dict:
     try:
         value = float(input("Informe o valor do depósito: "))
     except ValueError as err:

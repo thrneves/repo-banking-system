@@ -40,6 +40,16 @@ O menu interativo aceita:
 └── base_code/desafio.py    # versão original do desafio (pt-BR), mantida como referência
 ```
 
+## Convenção de chamada das funções
+
+A passagem de argumentos foi padronizada de forma **intencional**, seguindo orientação do enunciado do desafio:
+
+- **`deposits(account)`** — argumentos passados **por posição** (positional-only). A assinatura usa `/` para forçar essa forma: `def deposits(account: dict | None = None, /)`.
+- **`withdrawals(account=account)`** — argumentos passados **por nome** (keyword-only). A assinatura usa `*,` para forçar essa forma: `def withdrawals(*, account: dict)`.
+- **`extracts(account["balance"], extract=account["extract"])`** — combina os dois estilos: `balance` por **posição** e `extract` por **nome**. A assinatura usa `/` e `*` na mesma definição: `def extracts(balance: float, /, *, extract: str)`.
+
+A diferença entre as chamadas é proposital — o objetivo do exercício é praticar ambas as formas de passagem de parâmetros em Python, e não uma inconsistência de estilo. Cada função impõe sua convenção via assinatura (`/` e `*`), de modo que o uso "errado" gera erro em tempo de execução.
+
 ## Próximos passos
 
 - Mover os limites de saque (`limit`, `number_of_withdrawals`, `WITHDRAWAL_LIMIT`) em `functions/withdrawals/withdrawals.py` para variáveis de ambiente, evitando valores hardcoded.

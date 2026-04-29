@@ -1,4 +1,4 @@
-def extracts(account: dict) -> None:
+def extracts(balance: float, /, *, extract: str) -> None:
     print("\n================ Extrato ================")
-    print(f'{account["extract"]}\nSaldo: R$ {account["balance"]:.2f}')
+    print(f'{extract}\nSaldo: R$ {balance:.2f}')
     print("=========================================")

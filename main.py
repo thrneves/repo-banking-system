@@ -24,13 +24,13 @@ while True:
             if not account:
                 print("Antes de sacar, você precisa realizar um depósito!")
                 continue
-            account = withdrawals(account)
+            account = withdrawals(account=account)
 
         case "e":
             if not account:
                 print("Você ainda não depositou valores para solicitar extratos!")
                 continue
-            extracts(account)
+            extracts(account["balance"], extract=account["extract"])
     
         case "q":
             print("Obrigado(a) por utilizar o nosso sistema bancário!")

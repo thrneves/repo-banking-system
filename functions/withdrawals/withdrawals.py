@@ -2,7 +2,7 @@ limit = 500
 number_of_withdrawals = 0
 WITHDRAWAL_LIMIT = 3
 
-def withdrawals(account: dict) -> dict:
+def withdrawals(*, account: dict) -> dict:
     global number_of_withdrawals
     
     try:
