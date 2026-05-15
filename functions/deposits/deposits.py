@@ -1,12 +1,9 @@
-def deposits(account: dict | None = None, /) -> dict:
+def deposits(account: dict, /) -> dict:
     try:
         value = float(input("Informe o valor do depósito: "))
     except ValueError as err:
         print("Depósito precisa ser numérico!\nError: ", err)
         return account
-
-    if not account:
-        account = {"balance": 0, "extract": ""}
 
     if value > 0:
         account["balance"] += value
