@@ -1,11 +1,10 @@
 import re
-import random
 from datetime import datetime
 
 class MakeClient:
     def __init__(self, clients:list = []):
         self.clients = clients
-        self.client = {"address": {}, "account": {}}
+        self.client = {"address": {}, "accounts": []}
 
     def name(self) -> bool:
         name = input("Nome: ")
@@ -109,28 +108,3 @@ class MakeClient:
         letters_only = letters_only.upper()
         self.client["address"]["state_acronym"] = letters_only
         return True
-    
-    def account(self) -> bool:
-        while True: 
-            account_number = random.randint(1, 100)
-            
-            existing_account_number = False
-            for value in self.clients:
-                if value["account"]["number"] == account_number:
-                    existing_account_number = True
-                    break
-
-            if not existing_account_number:
-                break
-            
-        self.client["account"] = {
-            "number": account_number,
-            "balance": 0,
-            "extract": "",
-            "withdrawals_count": 0,
-            "limit": 1500,
-        }    
-        return True
-    
-
-    

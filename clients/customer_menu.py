@@ -1,4 +1,4 @@
-from classes.client import MakeClient
+from clients.client import MakeClient
 
 def customer_menu(clients_list: list) -> list:
     menu = "\n\n[c] Cadastrar\n[q] Sair\n\n\n=> "
@@ -17,8 +17,6 @@ def customer_menu(clients_list: list) -> list:
                 elif not client.birth():
                     continue
                 elif not client.address():
-                    continue
-                elif not client.account():
                     continue
 
                 clients_list.append(client.client)
