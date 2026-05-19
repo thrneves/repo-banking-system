@@ -1,4 +1,4 @@
-from classes.client import MakeClient
+from clients.client import MakeClient
 
 def customer_menu(clients_list: list) -> list:
     menu = "\n\n[c] Cadastrar\n[q] Sair\n\n\n=> "

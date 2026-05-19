@@ -1,6 +1,6 @@
-from functions.extracts.extracts import extracts
-from functions.deposits.deposits import deposits
-from functions.withdrawals.withdrawals import withdrawals
+from accounts.extracts.extracts import extracts
+from accounts.deposits.deposits import deposits
+from accounts.withdrawals.withdrawals import withdrawals
 
 def function_menu(account:dict) -> dict:
     menu = """\n\n[d] Depositar\n[s] Sacar\n[e] Extrato\n[q] Sair\n\n=> """

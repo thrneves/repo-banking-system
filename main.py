@@ -1,5 +1,5 @@
-from classes.customer_menu import customer_menu
-from functions.function_menu import function_menu
+from clients.customer_menu import customer_menu
+from accounts.function_menu import function_menu
 
 menu = """\n\n[c] Cadastrar Cliente\n[l] Listar Clientes\n[a] Ações da Conta\n[q] Sair\n\n=> """
 

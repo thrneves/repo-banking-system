@@ -54,13 +54,15 @@ python main.py
 
 ## Estrutura
 
+O projeto é organizado por **domínio** (cliente e conta), não por tipo (classe/função):
+
 ```
 .
 ├── main.py                       # entrypoint, loop do menu principal
-├── classes/
+├── clients/
 │   ├── client.py                 # MakeClient: cadastro e validação de dados do cliente
 │   └── customer_menu.py          # menu de cadastro de cliente
-├── functions/
+├── accounts/
 │   ├── function_menu.py          # menu de ações da conta (depósito/saque/extrato)
 │   ├── deposits/                 # depósitos
 │   ├── withdrawals/              # saques (com limite por conta e contador)
