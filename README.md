@@ -1,7 +1,7 @@
 # repo-banking-system
 
 Sistema bancário em linha de comando — desafio do bootcamp **DIO**.
-Permite cadastrar múltiplos clientes com validação de dados (CPF, data de nascimento, endereço) e realizar operações de depósito, saque e extrato em cada conta, mantidas em memória durante a execução.
+Permite cadastrar múltiplos clientes com validação de dados (CPF, data de nascimento, endereço), criar uma ou mais contas por cliente e realizar operações de depósito, saque e extrato em cada conta, mantidas em memória durante a execução.
 
 ## Requisitos
 
@@ -18,6 +18,7 @@ python main.py
 | Opção | Ação                                          |
 |-------|-----------------------------------------------|
 | `c`   | Cadastrar cliente (com validação dos dados)   |
+| `n`   | Nova conta (para um cliente já cadastrado)    |
 | `l`   | Listar clientes cadastrados                   |
 | `a`   | Ações da conta (depósito, saque, extrato)     |
 | `q`   | Sair                                          |
@@ -29,7 +30,7 @@ python main.py
 | `c`   | Cadastrar novo cliente   |
 | `q`   | Voltar ao menu principal |
 
-### Menu de ações da conta (acessado por `a`, após informar o número da conta)
+### Menu de ações da conta (acessado por `a`, após informar o CPF do cliente e o número da conta)
 
 | Opção | Ação      |
 |-------|-----------|
@@ -45,7 +46,12 @@ python main.py
 - Data de nascimento: formato `dd/mm/aaaa`, validada como data real.
 - Endereço: todos os campos são obrigatórios.
 - Sigla do estado: exatamente 2 letras.
-- Número da conta: gerado aleatoriamente entre 1 e 100, sem duplicar.
+
+### Contas
+- Cada cliente pode ter **uma ou mais contas**; cada conta pertence a um único cliente.
+- Número da conta: gerado sequencialmente a partir de 1, incrementando a cada nova conta criada (independente de cliente).
+- Agência: `0001` (valor fixo, conforme enunciado do desafio).
+- Conta nova nasce com saldo zero e sem movimentações.
 
 ### Operações da conta
 - Limite por saque definido em cada conta (campo `limit`, valor inicial **R$ 1.500,00**).
@@ -63,6 +69,7 @@ O projeto é organizado por **domínio** (cliente e conta), não por tipo (class
 │   ├── client.py                 # MakeClient: cadastro e validação de dados do cliente
 │   └── customer_menu.py          # menu de cadastro de cliente
 ├── accounts/
+│   ├── account.py                # create_account: cria nova conta para um cliente existente
 │   ├── function_menu.py          # menu de ações da conta (depósito/saque/extrato)
 │   ├── deposits/                 # depósitos
 │   ├── withdrawals/              # saques (com limite por conta e contador)

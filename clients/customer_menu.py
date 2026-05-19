@@ -18,8 +18,6 @@ def customer_menu(clients_list: list) -> list:
                     continue
                 elif not client.address():
                     continue
-                elif not client.account():
-                    continue
 
                 clients_list.append(client.client)
 
