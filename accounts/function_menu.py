@@ -19,7 +19,7 @@ def function_menu(account:dict) -> dict:
                 extracts(account["balance"], extract=account["extract"])
         
             case "q":
-                return account
+                return
 
             case _:
                 print("Operação inválida, por favor selecione novamente a operação desejada.")
