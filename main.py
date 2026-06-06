@@ -4,7 +4,7 @@ from clients.customer_menu import customer_menu
 from accounts.account import create_account
 from accounts.function_menu import function_menu
 
-menu = """\n\n[c] Cadastrar Cliente\n[n] Nova Conta\n[l] Listar Clientes\n[a] Ações da Conta\n[q] Sair\n\n=> """
+menu = "\n\n[c] Cadastrar Cliente\n[n] Nova Conta\n[l] Listar Clientes\n[a] Ações da Conta\n[q] Sair\n\n=> "
 
 clients_list = []
 while True:
