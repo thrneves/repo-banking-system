@@ -1,3 +1,6 @@
+from decorator import log
+
+@log
 def deposits(account: dict, /) -> dict:
     try:
         value = float(input("Informe o valor do depósito: "))

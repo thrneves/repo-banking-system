@@ -1,5 +1,8 @@
+from decorator import log
+
 account_number = 1
 
+@log
 def create_account(client: dict) -> dict:
     global account_number
 

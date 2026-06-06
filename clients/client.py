@@ -1,6 +1,8 @@
 import re
 from datetime import datetime
+from decorator import log
 
+@log
 class MakeClient:
     def __init__(self, clients:list = []):
         self.clients = clients
