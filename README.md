@@ -65,6 +65,7 @@ O projeto é organizado por **domínio** (cliente e conta), não por tipo (class
 ```
 .
 ├── main.py                       # entrypoint, loop do menu principal
+├── decorator.py                  # decorador @log: registra nome e horário de cada chamada
 ├── clients/
 │   ├── client.py                 # MakeClient: cadastro e validação de dados do cliente
 │   └── customer_menu.py          # menu de cadastro de cliente
@@ -86,6 +87,18 @@ A passagem de argumentos foi padronizada de forma **intencional**, seguindo orie
 - **`extracts(account["balance"], extract=account["extract"])`** — combina os dois estilos: `balance` por **posição** e `extract` por **nome**. A assinatura usa `/` e `*` na mesma definição: `def extracts(balance: float, /, *, extract: str)`.
 
 A diferença entre as chamadas é proposital — o objetivo do exercício é praticar ambas as formas de passagem de parâmetros em Python, e não uma inconsistência de estilo. Cada função impõe sua convenção via assinatura (`/` e `*`), de modo que o uso "errado" gera erro em tempo de execução.
+
+## Decorador `@log`
+
+O arquivo `decorator.py` define o decorador `log`, usado para praticar o conceito de **decoradores** em Python. A cada chamada da função decorada, ele imprime o nome da função e o horário da execução antes de repassar a chamada à função original:
+
+```python
+@log
+def deposits(account: dict, /) -> dict:
+    ...
+```
+
+Ao executar `deposits`, é impresso algo como `Running deposits on 2026-06-05 10:30:00`. O decorador usa `functools.wraps` para preservar o nome e a documentação da função original. Está aplicado às principais operações do sistema: cadastro de cliente (`client.py`), criação de conta (`account.py`), depósito, saque e extrato.
 
 ## Licença
 

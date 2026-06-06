@@ -1,5 +1,8 @@
+from decorator import log
+
 WITHDRAWAL_LIMIT = 3
 
+@log
 def withdrawals(*, account: dict) -> dict:
     try:
         value = float(input("Informe o valor do saque: "))
