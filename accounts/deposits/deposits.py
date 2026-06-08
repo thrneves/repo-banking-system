@@ -11,6 +11,7 @@ def deposits(account: dict, /) -> dict:
     if value > 0:
         account["balance"] += value
         account["extract"] += f"Depósito: R$ {value:.2f}\n"
+        account["transactions"].append({"type": "deposit", "value": value})
 
     else:
         print("Operação falhou! O valor informado é inválido.")

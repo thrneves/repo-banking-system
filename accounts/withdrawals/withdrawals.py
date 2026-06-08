@@ -1,6 +1,6 @@
 from decorator import log
 
-WITHDRAWAL_LIMIT = 3
+WITHDRAWAL_LIMIT = 10
 
 @log
 def withdrawals(*, account: dict) -> dict:
@@ -30,6 +30,7 @@ def withdrawals(*, account: dict) -> dict:
     else:
         account["balance"] -= value
         account["extract"] += f"Saque: R$ {value:.2f}\n"
+        account["transactions"].append({"type": "withdrawal", "value": value})
         account["withdrawals_count"] += 1
 
     return account

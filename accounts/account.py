@@ -11,6 +11,7 @@ def create_account(client: dict) -> dict:
         "number": account_number,
         "balance": 0,
         "extract": "",
+        "transactions": [],
         "withdrawals_count": 0,
         "limit": 1500,
     }
