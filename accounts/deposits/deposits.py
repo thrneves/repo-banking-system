@@ -1,4 +1,5 @@
 from decorator import log
+from datetime import datetime
 
 @log
 def deposits(account: dict, /) -> dict:
@@ -10,8 +11,9 @@ def deposits(account: dict, /) -> dict:
 
     if value > 0:
         account["balance"] += value
-        account["extract"] += f"Depósito: R$ {value:.2f}\n"
-        account["transactions"].append({"type": "deposit", "value": value})
+        #account["extract"] += f"Depósito: R$ {value:.2f}\n"
+        date = datetime.now()
+        account["transactions"].append({"type": "deposit", "value": value, "date": date})
 
     else:
         print("Operação falhou! O valor informado é inválido.")

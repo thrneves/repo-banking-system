@@ -1,7 +1,7 @@
 # repo-banking-system
 
 Sistema bancário em linha de comando — desafio do bootcamp **DIO**.
-Permite cadastrar múltiplos clientes com validação de dados (CPF, data de nascimento, endereço), criar uma ou mais contas por cliente e realizar operações de depósito, saque e extrato em cada conta, mantidas em memória durante a execução.
+Permite cadastrar múltiplos clientes com validação de dados (CPF, data de nascimento, endereço), criar uma ou mais contas por cliente e realizar operações de depósito, saque e relatório de transações em cada conta, mantidas em memória durante a execução.
 
 ## Requisitos
 
@@ -20,7 +20,7 @@ python main.py
 | `c`   | Cadastrar cliente (com validação dos dados)   |
 | `n`   | Nova conta (para um cliente já cadastrado)    |
 | `l`   | Listar clientes cadastrados                   |
-| `a`   | Ações da conta (depósito, saque, extrato)     |
+| `a`   | Ações da conta (depósito, saque, relatório)   |
 | `q`   | Sair                                          |
 
 ### Menu de cadastro (acessado por `c`)
@@ -32,12 +32,17 @@ python main.py
 
 ### Menu de ações da conta (acessado por `a`, após informar o CPF do cliente e o número da conta)
 
-| Opção | Ação      |
-|-------|-----------|
-| `d`   | Depositar |
-| `s`   | Sacar     |
-| `e`   | Extrato   |
-| `q`   | Voltar    |
+| Opção | Ação       |
+|-------|------------|
+| `d`   | Depositar  |
+| `s`   | Sacar      |
+| `r`   | Relatório  |
+| `q`   | Voltar     |
+
+> **Nota:** a opção de **extrato** (`e`) foi desativada. Comentei tudo do repositório
+> que tinha a ver com a função `extracts` — o **gerador de relatórios** (`report_generator`)
+> já é o suficiente para expressar os extratos de contas. O código da função `extracts`
+> permanece no repositório apenas como referência de estudo.
 
 ## Regras
 
@@ -58,6 +63,10 @@ python main.py
 - Máximo de **3 saques** por conta durante a execução.
 - Saque não pode exceder o saldo disponível.
 
+### Relatório de transações
+- Substitui o antigo extrato. Usa o **gerador** `report_generator`, que percorre as
+  transações da conta com `yield`, permitindo filtrar por tipo (depósitos, saques ou todas).
+
 ## Estrutura
 
 O projeto é organizado por **domínio** (cliente e conta), não por tipo (classe/função):
@@ -71,10 +80,11 @@ O projeto é organizado por **domínio** (cliente e conta), não por tipo (class
 │   └── customer_menu.py          # menu de cadastro de cliente
 ├── accounts/
 │   ├── account.py                # create_account: cria nova conta para um cliente existente
-│   ├── function_menu.py          # menu de ações da conta (depósito/saque/extrato)
+│   ├── function_menu.py          # menu de ações da conta (depósito/saque/relatório)
 │   ├── deposits/                 # depósitos
 │   ├── withdrawals/              # saques (com limite por conta e contador)
-│   └── extracts/                 # impressão de extrato
+│   ├── reports/                  # report_generator: gerador que percorre as transações
+│   └── extracts/                 # extracts (DESATIVADO — substituído pelo gerador de relatórios)
 └── base_code/desafio.py          # versão original do desafio (pt-BR), mantida como referência
 ```
 
@@ -88,6 +98,10 @@ A passagem de argumentos foi padronizada de forma **intencional**, seguindo orie
 
 A diferença entre as chamadas é proposital — o objetivo do exercício é praticar ambas as formas de passagem de parâmetros em Python, e não uma inconsistência de estilo. Cada função impõe sua convenção via assinatura (`/` e `*`), de modo que o uso "errado" gera erro em tempo de execução.
 
+> O exemplo de `extracts` é mantido aqui apenas como referência de estudo: a função está
+> desativada no sistema (ver nota no menu de ações da conta), mas continua sendo um bom
+> exemplo de combinação de `/` e `*` na mesma assinatura.
+
 ## Decorador `@log`
 
 O arquivo `decorator.py` define o decorador `log`, usado para praticar o conceito de **decoradores** em Python. A cada chamada da função decorada, ele imprime o nome da função e o horário da execução antes de repassar a chamada à função original:
@@ -98,7 +112,7 @@ def deposits(account: dict, /) -> dict:
     ...
 ```
 
-Ao executar `deposits`, é impresso algo como `Running deposits on 2026-06-05 10:30:00`. O decorador usa `functools.wraps` para preservar o nome e a documentação da função original. Está aplicado às principais operações do sistema: cadastro de cliente (`client.py`), criação de conta (`account.py`), depósito, saque e extrato.
+Ao executar `deposits`, é impresso algo como `Running deposits on 2026-06-05 10:30:00`. O decorador usa `functools.wraps` para preservar o nome e a documentação da função original. Está aplicado às principais operações do sistema: cadastro de cliente (`client.py`), criação de conta (`account.py`), depósito e saque.
 
 ## Licença
 

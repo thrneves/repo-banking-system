@@ -1,4 +1,5 @@
 from decorator import log
+from datetime import datetime
 
 WITHDRAWAL_LIMIT = 10
 
@@ -29,8 +30,9 @@ def withdrawals(*, account: dict) -> dict:
 
     else:
         account["balance"] -= value
-        account["extract"] += f"Saque: R$ {value:.2f}\n"
-        account["transactions"].append({"type": "withdrawal", "value": value})
+        #account["extract"] += f"Saque: R$ {value:.2f}\n"
+        date = datetime.now()
+        account["transactions"].append({"type": "withdrawal", "value": value, "date": date})
         account["withdrawals_count"] += 1
 
     return account

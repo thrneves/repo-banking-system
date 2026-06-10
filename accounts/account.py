@@ -10,7 +10,7 @@ def create_account(client: dict) -> dict:
         "agency": "0001",
         "number": account_number,
         "balance": 0,
-        "extract": "",
+        #"extract": "",
         "transactions": [],
         "withdrawals_count": 0,
         "limit": 1500,
