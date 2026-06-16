@@ -20,6 +20,7 @@ python main.py
 | `c`   | Cadastrar cliente (com validação dos dados)   |
 | `n`   | Nova conta (para um cliente já cadastrado)    |
 | `l`   | Listar clientes cadastrados                   |
+| `i`   | Listar todas as contas do banco               |
 | `a`   | Ações da conta (depósito, saque, relatório)   |
 | `q`   | Sair                                          |
 
@@ -80,6 +81,7 @@ O projeto é organizado por **domínio** (cliente e conta), não por tipo (class
 │   └── customer_menu.py          # menu de cadastro de cliente
 ├── accounts/
 │   ├── account.py                # create_account: cria nova conta para um cliente existente
+│   ├── account_iterator.py       # ContaIterador: itera sobre todas as contas do banco
 │   ├── function_menu.py          # menu de ações da conta (depósito/saque/relatório)
 │   ├── deposits/                 # depósitos
 │   ├── withdrawals/              # saques (com limite por conta e contador)
@@ -101,6 +103,23 @@ A diferença entre as chamadas é proposital — o objetivo do exercício é pra
 > O exemplo de `extracts` é mantido aqui apenas como referência de estudo: a função está
 > desativada no sistema (ver nota no menu de ações da conta), mas continua sendo um bom
 > exemplo de combinação de `/` e `*` na mesma assinatura.
+
+## Iterador personalizado `ContaIterador`
+
+O arquivo `account_iterator.py` define a classe `ContaIterador`, usada para praticar o
+**protocolo de iterador** em Python (`__iter__` e `__next__`). Ela permite percorrer
+**todas as contas do banco** de uma vez, independente de qual cliente é dono de cada conta.
+
+```python
+for conta in ContaIterador(clients_list):
+    print(conta)  # {'owner': ..., 'agency': ..., 'number': ..., 'balance': ...}
+```
+
+Como as contas ficam guardadas **dentro de cada cliente** (`client["accounts"]`), o
+`__init__` "achata" essa estrutura numa lista única de tuplas `(dono, conta)` — assim a
+informação de quem é a conta não se perde. O `__next__` devolve as informações básicas de
+cada conta (titular, agência, número e saldo) e levanta `StopIteration` quando chega ao fim.
+É acessível pela opção `i` do menu principal.
 
 ## Decorador `@log`
 
