@@ -2,9 +2,10 @@ import re
 
 from clients.customer_menu import customer_menu
 from accounts.account import create_account
+from accounts.account_iterator import AccountIterator
 from accounts.function_menu import function_menu
 
-menu = "\n\n[c] Cadastrar Cliente\n[n] Nova Conta\n[l] Listar Clientes\n[a] Ações da Conta\n[q] Sair\n\n=> "
+menu = "\n\n[c] Cadastrar Cliente\n[n] Nova Conta\n[l] Listar Clientes\n[i] Listar Contas\n[a] Ações da Conta\n[q] Sair\n\n=> "
 
 clients_list = []
 while True:
@@ -33,7 +34,9 @@ while True:
             for client in clients_list:
                 if client["cpf"] == cpf_input:
                     new_account = create_account(client)
-                    print(f"Conta {new_account['number']} criada para {client['name']} (agência {new_account['agency']}).")
+                    print(
+                        f"Conta {new_account['number']} criada para {client['name']} (agência {new_account['agency']})."
+                    )
                     break
             else:
                 print("Cliente não localizado!")
@@ -44,6 +47,19 @@ while True:
                 print(clients_list)
             else:
                 print("Cadastre um cliente!")
+            continue
+
+        case "i":
+            if not clients_list:
+                print("Cadastre um cliente!")
+                continue
+
+            print("\n=============== Contas do banco ===============")
+            for account in AccountIterator(clients_list):
+                print(
+                    f"  - Conta {account['number']} | Agência {account['agency']} | Saldo R$ {account['balance']:.2f} | Titular: {account['owner']}"
+                )
+            print("===============================================")
             continue
 
         case "a":
@@ -69,7 +85,9 @@ while True:
 
             print(f"\nContas de {client_found['name']}:")
             for acc in client_found["accounts"]:
-                print(f"  - Conta {acc['number']} | Agência {acc['agency']} | Saldo R$ {acc['balance']:.2f}")
+                print(
+                    f"  - Conta {acc['number']} | Agência {acc['agency']} | Saldo R$ {acc['balance']:.2f}"
+                )
 
             try:
                 account_input = int(input("Número da conta: "))
@@ -91,4 +109,6 @@ while True:
             break
 
         case _:
-            print("Operação inválida, por favor selecione novamente a operação desejada.")
+            print(
+                "Operação inválida, por favor selecione novamente a operação desejada."
+            )
