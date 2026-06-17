@@ -75,7 +75,7 @@ O projeto é organizado por **domínio** (cliente e conta), não por tipo (class
 ```
 .
 ├── main.py                       # entrypoint, loop do menu principal
-├── decorator.py                  # decorador @log: registra nome e horário de cada chamada
+├── decorator.py                  # decorador @log: grava os registros de cada chamada em log.txt
 ├── clients/
 │   ├── client.py                 # MakeClient: cadastro e validação de dados do cliente
 │   └── customer_menu.py          # menu de cadastro de cliente
@@ -123,7 +123,7 @@ cada conta (titular, agência, número e saldo) e levanta `StopIteration` quando
 
 ## Decorador `@log`
 
-O arquivo `decorator.py` define o decorador `log`, usado para praticar o conceito de **decoradores** em Python. A cada chamada da função decorada, ele imprime o nome da função e o horário da execução antes de repassar a chamada à função original:
+O arquivo `decorator.py` define o decorador `log`, usado para praticar o conceito de **decoradores** em Python. A cada chamada da função decorada, ele registra os detalhes da execução em um arquivo `log.txt` (criado na raiz do projeto) em vez de imprimir no terminal:
 
 ```python
 @log
@@ -131,7 +131,13 @@ def deposits(account: dict, /) -> dict:
     ...
 ```
 
-Ao executar `deposits`, é impresso algo como `Running deposits on 2026-06-05 10:30:00`. O decorador usa `functools.wraps` para preservar o nome e a documentação da função original. Está aplicado às principais operações do sistema: cadastro de cliente (`client.py`), criação de conta (`account.py`), depósito e saque.
+Cada chamada gera uma linha no `log.txt` com o nome da função, o horário, os argumentos recebidos, o tipo do retorno e o próprio valor de retorno — por exemplo:
+
+```
+Running: deposits on 2026-06-17 08:39:17 - Arguments: ({'balance': 100, ...},) - Type: <class 'dict'>. Return: {...}
+```
+
+O arquivo é aberto em modo de **acréscimo** (`"a"`), de forma que os registros se acumulam a cada execução, e o caminho é resolvido a partir de `Path(__file__).parent` para gravar sempre na raiz do projeto. A escrita é protegida por um `try/except IOError`, que avisa no terminal caso haja falha ao manipular o arquivo. O decorador usa `functools.wraps` para preservar o nome e a documentação da função original e está aplicado às principais operações do sistema: cadastro de cliente (`client.py`), criação de conta (`account.py`), depósito e saque.
 
 ## Licença
 
