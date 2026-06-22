@@ -2,6 +2,7 @@ from decorator import log
 
 account_number = 1
 
+
 @log
 def create_account(client: dict) -> dict:
     global account_number
@@ -10,7 +11,7 @@ def create_account(client: dict) -> dict:
         "agency": "0001",
         "number": account_number,
         "balance": 0,
-        #"extract": "",
+        # "extract": "",
         "transactions": [],
         "withdrawals_count": 0,
         "limit": 1500,

@@ -1,7 +1,8 @@
-from decorator import log
 from datetime import datetime
+from decorator import log
 
 WITHDRAWAL_LIMIT = 10
+
 
 @log
 def withdrawals(*, account: dict) -> dict:
@@ -11,7 +12,7 @@ def withdrawals(*, account: dict) -> dict:
         print("Saque precisa ser numérico!\nError: ", err)
         return account
 
-    if value <= 0: 
+    if value <= 0:
         print("Operação falhou! Valor de saque precisa ser maior que 0.")
         return account
 
@@ -30,9 +31,11 @@ def withdrawals(*, account: dict) -> dict:
 
     else:
         account["balance"] -= value
-        #account["extract"] += f"Saque: R$ {value:.2f}\n"
+        # account["extract"] += f"Saque: R$ {value:.2f}\n"
         date = datetime.now()
-        account["transactions"].append({"type": "withdrawal", "value": value, "date": date})
+        account["transactions"].append(
+            {"type": "withdrawal", "value": value, "date": date}
+        )
         account["withdrawals_count"] += 1
 
     return account

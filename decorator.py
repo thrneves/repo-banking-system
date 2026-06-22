@@ -21,7 +21,8 @@ def log(function):
         else:
             arguments = "No arguments"
 
-        log = f"Running: {function.__name__} on {date} - Arguments: {arguments} - Type: {type(response)}. Return: {response}\n"
+        log = f"Running: {function.__name__} on {date} - Arguments: \
+            {arguments} - Type: {type(response)}. Return: {response}\n"
         try:
             with open(ROOT_PATH / "log.txt", "a", encoding="utf-8") as data:
                 data.write(log)

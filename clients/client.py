@@ -2,9 +2,10 @@ import re
 from datetime import datetime
 from decorator import log
 
+
 @log
 class MakeClient:
-    def __init__(self, clients:list = []):
+    def __init__(self, clients: list = []):
         self.clients = clients
         self.client = {"address": {}, "accounts": []}
 
@@ -17,7 +18,6 @@ class MakeClient:
 
         self.client["name"] = name
         return True
-            
 
     def cpf(self) -> bool:
         cpf = input("CPF: ")
@@ -41,7 +41,7 @@ class MakeClient:
 
         if existing_cpf:
             return False
-            
+
         self.client["cpf"] = numeric_only
         return True
 
@@ -51,7 +51,7 @@ class MakeClient:
         if not birth:
             print("Digite a data de nascimento!")
             return False
-    
+
         numeric_only = re.sub(r"\D", "", birth)
 
         if birth and len(numeric_only) != 8:
@@ -63,11 +63,11 @@ class MakeClient:
         except ValueError:
             print("Data inválida!")
             return False
-            
+
         if birth and len(birth) == 10:
             self.client["birth"] = birth
             return True
-        
+
     def address(self) -> bool:
         street = input("\n================ Endereço ================\nRua: ")
         if not street:
@@ -75,26 +75,26 @@ class MakeClient:
             return False
 
         self.client["address"]["street"] = street
-    
+
         number = input("Número: ")
         if not number:
             print("O preenchimento do número da residencia é obrigatorio!")
             return False
 
         self.client["address"]["number"] = number
-    
+
         neighborhood = input("Bairro: ")
         if not neighborhood:
             print("O preenchimento do bairro é obrigatorio!")
             return False
-    
+
         self.client["address"]["neighborhood"] = neighborhood
 
         city = input("Cidade: ")
         if not city:
             print("O preenchimento da cidade é obrigatorio!")
             return False
-    
+
         self.client["address"]["city"] = city
 
         state_acronym = input("Sigla do Estado: ")

@@ -1,5 +1,6 @@
 from clients.client import MakeClient
 
+
 def customer_menu(clients_list: list) -> list:
     menu = "\n\n[c] Cadastrar\n[q] Sair\n\n\n=> "
 
@@ -23,6 +24,8 @@ def customer_menu(clients_list: list) -> list:
 
             case "q":
                 return clients_list
-            
+
             case _:
-                print("Operação inválida, por favor selecione novamente a operação desejada.")
+                print(
+                    "Operação inválida, por favor selecione novamente a operação desejada."
+                )
